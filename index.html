@@ -10,38 +10,63 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
-  <h1 id="heading">Workout Log</h1>
+  <div id="edit-container" class="hide">
+    <h2>Edit Workout</h2>
 
-  <form id="workout-form" class="container form-container">
-    <div class="mb-3">
-      <label class="form-label" for="name">Workout</label>
-      <input class="form-control" type="text" id="name">
-    </div>
-    <div class="mb-3">
-      <label class="form-label" for="sets">Sets</label>
-      <input class="form-control" type="text" id="sets">
-    </div>
-    <div class="mb-3">
-      <label class="form-label" for="reps">Reps</label>
-      <input class="form-control" type="text" id="reps">
-    </div>
-    <div class="mb-3">
-      <input class="btn btn-primary" type="submit" value="Submit">
-    </div>
-  </form>
+    <form id="edit-form" class="container form-container">
+      <div class="mb-3">
+        <label class="form-label" for="edit-name">Edit Workout</label>
+        <input class="form-control" type="text" id="edit-name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="edit-sets">Edit Sets</label>
+        <input class="form-control" type="text" id="edit-sets">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="edit-reps">Edit Reps</label>
+        <input class="form-control" type="text" id="edit-reps">
+      </div>
+      <div class="mb-3">
+        <a class="btn btn-primary save-changes">Submit</a>
+        <a class="btn btn-danger cancel-changes">Cancel</a>
+      </div>
+    </form>
+  </div>
+  
+  <div id="main-container">
+    <h1 id="heading">Workout Log</h1>
 
-  <div class="container">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Sets</th>
-          <th>Reps</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="workout-list"></tbody>
-    </table>
+    <form id="workout-form" class="container form-container">
+      <div class="mb-3">
+        <label class="form-label" for="name">Workout</label>
+        <input class="form-control" type="text" id="name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="sets">Sets</label>
+        <input class="form-control" type="text" id="sets">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="reps">Reps</label>
+        <input class="form-control" type="text" id="reps">
+      </div>
+      <div class="mb-3">
+        <input class="btn btn-primary" type="submit" value="Submit">
+      </div>
+    </form>
+
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Sets</th>
+            <th>Reps</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="workout-list"></tbody>
+      </table>
+    </div>
   </div>
   
   <!-- JavaScript Bundle with Popper -->
