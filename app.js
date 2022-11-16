@@ -17,6 +17,7 @@ class UI {
       <td>${workout.sets}</td>
       <td>${workout.reps}</td>
       <td><a href="#" class="delete">X</a></td>
+      <td><a href="#" class="edit">O</a></td>
     `
 
     workoutList.appendChild(row)
@@ -25,6 +26,36 @@ class UI {
   deleteWorkout(target) {
     if(target.className === 'delete') {
       target.parentElement.parentElement.remove()
+    }
+  }
+
+  editWorkout(target) {
+    if(target.className === 'edit') {
+      const editContainer = document.getElementById('edit-container')
+      const mainContainer = document.getElementById('main-container')
+  
+      mainContainer.classList.toggle('hide')
+  
+      editContainer.classList.toggle('hide')
+    }
+  }
+
+  removeEditForm(target) {
+    const editContainer = document.getElementById('edit-container')
+    const mainContainer = document.getElementById('main-container')
+
+    if(target.className === 'btn btn-primary save-changes') {
+      mainContainer.classList.toggle('hide')
+  
+      editContainer.classList.toggle('hide')
+
+      alert('changes saved')
+    } else if(target.className === 'btn btn-danger cancel-changes') {
+      mainContainer.classList.toggle('hide')
+  
+      editContainer.classList.toggle('hide')
+
+      alert('changes canceled')
     }
   }
 
@@ -49,9 +80,9 @@ class Store {
   }
 
   static displayWorkouts() {
-    const books = Store.getWorkouts()
+    const workouts = Store.getWorkouts()
 
-    books.forEach(function(workout) {
+    workouts.forEach(function(workout) {
       const ui = new UI
 
       // Add book to UI
@@ -72,13 +103,27 @@ class Store {
 
     workouts.forEach(function(workout, index) {
       if(workout.name === name & workout.sets === sets & workout.reps === reps) {
-        console.log(index, name)
         workouts.splice(index, 1)
         return
       }
     })
 
     localStorage.setItem('workouts', JSON.stringify(workouts))
+  }
+
+  static editWorkout(name, sets, reps) {
+    const workouts = Store.getWorkouts()
+
+    workouts[editIndex].name = name
+    workouts[editIndex].sets = sets
+    workouts[editIndex].reps = reps
+
+    location.reload()
+    
+    localStorage.setItem('workouts', JSON.stringify(workouts))
+    
+
+    Store.displayWorkouts()
   }
 }
 
@@ -102,19 +147,15 @@ document.getElementById('workout-form').addEventListener('submit', function(e) {
   if(name === '' || sets === '' || reps === '') {
     console.log('Please fill fields')
   } else {
-    console.log(name, sets, reps)
+    // Add to workout list
+    ui.addToWorkoutList(workout)
+
+    // Add to Local Storage
+    Store.addWorkout(workout)
+
+    // Clear fields
+    ui.clearFields()
   }
-
-  // Add to workout list
-  ui.addToWorkoutList(workout)
-
-  // Add to Local Storage
-  Store.addWorkout(workout)
-
-  // Clear fields
-  ui.clearFields()
-
-
 
   e.preventDefault()
 })
@@ -128,11 +169,74 @@ document.getElementById('workout-list').addEventListener('click', function(e) {
   ui.deleteWorkout(e.target)
 
   // Remove from Local Storage
-  const name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent
-  const sets = e.target.parentElement.previousElementSibling.previousElementSibling.textContent
-  const reps = e.target.parentElement.previousElementSibling.textContent
-  Store.removeWorkout(name, sets, reps)
+  if(e.target.className === 'delete') {
+    const name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent
+    const sets = e.target.parentElement.previousElementSibling.previousElementSibling.textContent
+    const reps = e.target.parentElement.previousElementSibling.textContent
+    
+    Store.removeWorkout(name, sets, reps)
+  }
 
   e.preventDefault()
 })
 
+// Edit event listener
+let editIndex
+document.getElementById('workout-list').addEventListener('click', (e) => {
+  const ui = new UI
+
+  ui.editWorkout(e.target)
+
+  if(e.target.className === 'edit') {
+    const name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+    const sets = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+    const reps = e.target.parentElement.previousElementSibling.previousElementSibling.innerText
+    
+    const workouts = Store.getWorkouts()
+
+    workouts.forEach(function(workout) {
+      if(workout.name === name || workout.sets === sets || workout.reps === reps) {
+        editIndex = workouts.indexOf(workout)
+      }
+    })
+
+    document.getElementById('edit-name').value = name
+    document.getElementById('edit-sets').value = sets
+    document.getElementById('edit-reps').value = reps
+  }
+
+  e.preventDefault()
+})
+
+document.getElementById('edit-form').addEventListener('click', (e) => {
+  if(e.target.className === 'btn btn-primary save-changes') {
+    // Collect form values
+    const name = document.getElementById('edit-name').value,
+    sets = document.getElementById('edit-sets').value,
+    reps = document.getElementById('edit-reps').value
+
+    // Instantiate Workout
+    // const workout = new Workout(name, sets, reps)
+
+    // Instantiate UI
+    const ui = new UI()
+
+    // Validate
+    if(name === '' || sets === '' || reps === '') {
+      console.log('Please fill fields')
+    } else {
+      console.log(name, sets, reps)
+    }
+
+    Store.editWorkout(name, sets, reps)
+
+    ui.removeEditForm(e.target)
+} else if(e.target.className === 'btn btn-danger cancel-changes') {
+    // Instantiate UI
+    const ui = new UI()
+    
+    ui.removeEditForm(e.target)
+  }
+
+  e.preventDefault()
+})
