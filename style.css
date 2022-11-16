@@ -4,11 +4,22 @@
   box-sizing: border-box;
 }
 
-h1 {
+h1,
+h2 {
   text-align: center;
   padding: 4rem 0;
 }
 
+.hide {
+  display: none !important;
+}
+
+#edit-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+}
 #workout-form {
   display: flex;
   justify-content: center;
