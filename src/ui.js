@@ -1,7 +1,7 @@
 class UI {
   constructor() {
-    this.excersises = document.querySelector('#excercises')
-    this.excersiseName = document.querySelector('#excersise-name')
+    this.excercises = document.querySelector('#excercises')
+    this.excerciseName = document.querySelector('#excercise-name')
     this.sets = document.querySelector('#sets')
     this.reps = document.querySelector('#reps')
     this.idInput = document.querySelector('#id')
@@ -9,10 +9,10 @@ class UI {
     this.excerciseSubmit = document.querySelector('.excercise-submit')
   }
 
-  showExcercises(excersises) {
+  showExcercises(excercises) {
     let output = ''
 
-    excersises.forEach((excercise) => {
+    excercises.forEach((excercise) => {
       output += `
       <div class="card mb-3">
       <div class="card-body">
@@ -30,7 +30,7 @@ class UI {
       `
     })
 
-    this.excersises.innerHTML = output
+    this.excercises.innerHTML = output
   }
 }
 

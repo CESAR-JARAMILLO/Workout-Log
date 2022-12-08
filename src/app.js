@@ -10,7 +10,25 @@ function getExcercises() {
     .catch(err => console.log(err))
 }
 
+ui.excerciseSubmit.addEventListener('click', addExcercise)
 
+function addExcercise() {
+  const name = ui.excerciseName.value
+  const sets = ui.sets.value
+  const reps = ui.reps.value
+  
+  const data = {
+    name,
+    sets,
+    reps
+  }
+
+  http.post('http://localhost:3000/Excercises', data)
+    .then(data => getExcercises())
+    .catch(err => console.log(err))
+}
+
+  
 // class Workout {
 //   constructor(name, sets, reps) {
 //     this.name = name
