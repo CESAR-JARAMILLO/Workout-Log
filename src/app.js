@@ -17,7 +17,7 @@ class UI {
       <td>${workout.sets}</td>
       <td>${workout.reps}</td>
       <td><a href="#" class="delete">X</a></td>
-      <td><a href="#" class="edit">O</a></td>
+      <td><a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
     `
 
     workoutList.appendChild(row)
@@ -30,7 +30,7 @@ class UI {
   }
 
   editWorkout(target) {
-    if(target.className === 'edit') {
+    if(target.parentElement.className === 'edit') {
       const editContainer = document.getElementById('edit-container')
       const mainContainer = document.getElementById('main-container')
   
