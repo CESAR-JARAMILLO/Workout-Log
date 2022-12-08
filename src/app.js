@@ -24,7 +24,11 @@ function addExcercise() {
   }
 
   http.post('http://localhost:3000/Excercises', data)
-    .then(data => getExcercises())
+    .then(data => {
+      ui.showAlert('Excercise Added', 'alert alert-success')
+      ui.clearFields()
+      getExcercises()
+    })
     .catch(err => console.log(err))
 }
 

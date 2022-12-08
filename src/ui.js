@@ -32,6 +32,40 @@ class UI {
 
     this.excercises.innerHTML = output
   }
+
+  showAlert(message, className) {
+    this.clearAlert()
+
+  // Create div
+  const div = document.createElement('div')
+  // Add class name
+  div.className = className
+  // Add text
+  div.appendChild(document.createTextNode(message))
+  // Get parent 
+  const container = document.querySelector('.excercisesContainer')
+  // Insert alert div
+  container.insertBefore(div, this.excercises)
+
+  // Set timeout
+  setTimeout(() => {
+    this.clearAlert()
+  }, 3000)
+  }
+
+  clearAlert() {
+    const currentAlert = document.querySelector('.alert')
+
+    if(currentAlert) {
+      currentAlert.remove()
+    }
+  }
+
+  clearFields() {
+    this.excerciseName.value = ''
+    this.sets.value = ''
+    this.reps.value = ''
+  }
 }
 
 export const ui = new UI()
