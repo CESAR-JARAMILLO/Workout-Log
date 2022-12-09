@@ -2,8 +2,8 @@
   "Excercises": [
     {
       "name": "Push-Ups",
-      "sets": 4,
-      "reps": 8,
+      "sets": "Sets: 5",
+      "reps": "Reps: 8",
       "id": 1
     },
     {
