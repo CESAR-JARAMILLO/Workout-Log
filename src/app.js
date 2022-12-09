@@ -85,15 +85,16 @@ function deleteExcercise(e) {
 
 // Enable Edit State - Using Event Delegation
 function enableEdit(e) {
-  if(e.target.classList.contains('edit')) {
+  // console.log(e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent)
+  if(e.target.parentElement.classList.contains('edit')) {
 
-    const id = e.target.dataset.id
+    const id = e.target.parentElement.dataset.id
 
-    const excerciseName = e.target.previousElementSibling.previousElementSibling.previousElementSibling.textContent
+    const excerciseName = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent
 
-    const sets = e.target.previousElementSibling.previousElementSibling.textContent
+    const sets = e.target.parentElement.previousElementSibling.previousElementSibling.textContent
 
-    const reps = e.target.previousElementSibling.textContent
+    const reps = e.target.parentElement.previousElementSibling.textContent
 
     const data = {
       id,
